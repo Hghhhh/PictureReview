@@ -8,10 +8,41 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 
 public class ImageUtil {
+
+    public static void generateDiffPic(String path) throws IOException {
+        BufferedImage bufferedImage = readImageFormLocal(path);
+        // 将一维数组转换为二维数组
+        int[][] rgbArray = convertImageToArray(bufferedImage);
+        Random random = new Random();
+        for(int i=0;i<10;i++){
+                int x = random.nextInt(rgbArray.length);
+                int y = random.nextInt(rgbArray[0].length);
+                if(rgbArray[x][y]==255)continue;
+
+                    if(y>0){
+                        rgbArray[x][y-1] =255;
+                    }
+                    if(y<rgbArray[0].length-1)
+                        rgbArray[x][y+1] =255;
+                    if(x<rgbArray.length-1)
+                        rgbArray[x+1][y] =255;
+                    if(x>0)
+                        rgbArray[x-1][y] =255;
+                    if(x<rgbArray.length-1&&y<rgbArray[0].length-1)
+                        rgbArray[x+1][y+1] =255;
+                    if(x>0&&y>0)
+                        rgbArray[x-1][y-1] =255;
+
+
+        }
+        writeImageFromArray(path.replace(".png","")+"copy.png","png",rgbArray);
+    }
+
 
     public static BufferedImage readImageFormLocal(String imageFile) throws IOException {
 

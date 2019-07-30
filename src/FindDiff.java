@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.*;
 import java.util.List;
 
@@ -45,12 +47,24 @@ public class FindDiff {
      *
      * @param zoneMap
      */
-    public static void printIsland(Map<Integer, Point[]> zoneMap) {
-        System.out.println(zoneMap.size());
-        for (Map.Entry<Integer, Point[]> entry : zoneMap.entrySet()) {
+    public static  int[][] printIsland(Map<Integer, Point[]> zoneMap) {
+        Map<Integer,Point[]> filterMap = new HashMap<>();
+        Integer size = 1;
+        for(Map.Entry<Integer,Point[]> entry : zoneMap.entrySet()){
+            if(entry.getValue().length>30){
+                filterMap.put(size++,entry.getValue());
+            }
+        }
+        System.out.println(filterMap.size());
+        int[][] imageArray = new int[320][335];
+        for (Map.Entry<Integer, Point[]> entry : filterMap.entrySet()) {
             System.out.println("-----------" + entry.getKey());
             System.out.println(Arrays.asList(entry.getValue()));
+            for(Point point :entry.getValue()){
+                imageArray[point.x][point.y] = 255;
+            }
         }
+        return imageArray;
     }
 
     /**

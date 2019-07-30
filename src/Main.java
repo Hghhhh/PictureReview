@@ -5,8 +5,10 @@ import java.io.File;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        int[][] array1 = ImageUtil.getImgArray("D:\\png\\30-1.png",335,320);
-        int[][] array2 = ImageUtil.getImgArray("D:\\png\\30-2.png",335,320);
+       // ImageUtil.generateDiffPic("D:\\png\\1-1.png");
+
+        int[][] array1 = ImageUtil.getImgArray("D:\\png\\6-1.png",335,320);
+        int[][] array2 = ImageUtil.getImgArray("D:\\png\\6-2.png",335,320);
         System.out.println(array1.length+"   "+array1[0].length);
         System.out.println(array2.length+"   "+array2[0].length);
         /*
@@ -50,13 +52,14 @@ public class Main {
                 if(Math.abs(array1[i][j]-array2[i][j])>2){
                     stringBuilder.append(array1[i][j]+":"+array2[i][j]+" ");
                 }
-               System.out.print(array3[i][j]+" ");
+               //System.out.print(array3[i][j]+" ");
             }
-            System.out.println("");
+            //System.out.println("");
         }
        // System.out.println(stringBuilder.toString());
-       // FindDiff.printIsland(FindDiff.findIsland(array3));
+        ImageUtil.writeImageFromArray("D:\\png\\6-3.png","png",FindDiff.printIsland(FindDiff.findIsland(array3)));
         System.out.println("");
+
     }
 
 
